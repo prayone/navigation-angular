@@ -622,7 +622,7 @@
 	        </div>
 	        <hr>	
 	</div>
-	
+<!-- ============================================================= -->
 	<footer class="container">
         <div class="text-reght myfont pull-right" style="color: #9C9C9C;">
             <dl>
@@ -634,7 +634,7 @@
             </dl>
         </div>
     </footer>
-
+<!-- ============================================================= -->
     <!--二维码模态框-->
     <div class="modal fade" id="indexewm-modal"><!--半透明黑色大框 fade属性为动画-->
         <div class="modal-dialog"> <!--宽/高/定位-->
@@ -655,6 +655,73 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ============================================================= -->
+    <!-- 注册 -->
+    <div class="modal fade" id="zhuce-modal">
+        <div class="modal-dialog"> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal">&times;</span>
+                    <div class="logo text-center">
+                       <img src="http://oh4kff8rx.bkt.clouddn.com/data/20161122/20161122141252_411.png">
+                       <span>prayone书签网</span>
+                    </div>
+                    <h4>欢迎注册"个性网址导航"</h4>
+                    <h4><small>在这里可以定制，专属于您个人的网址导航主页</small></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="zhuce-up">用户名：</label>
+                        <input type="text" class="form-control" id="zhuce-up" placeholder="请输入用户名" ng-model="yhm">
+                        <span class="help-block tishi">登录名为邮箱或者手机号</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pw1">登录密码：</label>
+                        <input type="password" class="form-control" id="pw1" placeholder="请输入登录密码" ng-model="mm1">
+                        <span class="help-block tishi">密码不少于6位</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pw2">确认登录密码：</label>
+                        <input type="password" class="form-control" id="pw2" placeholder="确认登录密码" ng-model="mm2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#login-modal" data-toggle="modal" id="tiao">已有账户？</a>
+                    <div class="btn btn-success" id="register" ng-click="register()">提交注册</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登陆 -->
+    <div class="modal fade" id="login-modal"><!--半透明黑色大框 fade属性为动画-->
+        <div class="modal-dialog"> <!--宽/高/定位-->
+            <div class="modal-content"><!--边框/背景色/阴影-->
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal">&times;</span><!--关闭按钮-->
+                    <div class="logo text-center">
+                       <img src="http://oh4kff8rx.bkt.clouddn.com/data/20161122/20161122141252_411.png">
+                       <span>prayone书签网</span>
+                    </div>
+                    <h4>欢迎登陆"个性网址导航"</h4>
+                    <h4><small>在这里可以定制，专属于您个人的网址导航主页</small></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="loginup">用户名：</label>
+                        <input type="text" class="form-control username" id="loginup">
+                    </div>
+                    <div class="form-group">
+                        <label for="password11">密码：</label>
+                        <input type="password" class="form-control password" id="password11">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="sign-in">登陆</button>
+                    <button class="btn btn-danger" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>

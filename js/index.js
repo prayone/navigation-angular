@@ -1,5 +1,7 @@
-angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope){
-	$scope.kan=true;
+var targetUrl = "http://119.29.254.72:9000";
+var base_login = '/op/login';
+var base_register="/op/register";
+angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope,$http){
 	// 搜索框
 	$scope.searchWeb=function(){
 		var webCof = {
@@ -39,4 +41,48 @@ angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope)
 		$scope.ewmlink=link;
 	    $(".ewmimg").attr("src",iewmsrc+link);
 	}
+
+	// 注册登录
+	$scope.register=function(){
+		var username = $scope.yhm;
+		var password = $scope.mm1;
+		var PWD = $scope.mm2;
+		if(password!=PWD){
+			alert('两次输入密码不一致')
+			return
+		}
+        if(username==""||password==""){
+            alert("用户名或者密码不能为空！")
+            return;
+        }
+        $scope.data = {
+            username:username,
+            password:password
+        };
+      
+        var url=targetUrl+base_register;
+         $http({
+            url: url,
+            method: 'POST',
+            data:$scope.data
+            
+        }).success(function(rs){
+        	if(rs.info){
+                alert("注册成功！")
+                location.href = 'index.html';
+            }else{
+                alert(rs.err)
+                $scope.yhm="";
+                
+            }
+        }).error(function(rs){
+        	if(rs.err){
+        		alert(rs)
+            }
+        });
+};
+
+
+
+
 })
