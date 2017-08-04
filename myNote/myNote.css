@@ -1,0 +1,34 @@
+.myinfo{
+	color: #0f0;
+	font-size: 16px;
+	position: relative;
+	top: -7px;
+	left: 1px;
+}
+.exit{
+	color: #f66;
+	position: relative;
+	top: 16px;
+	left: -43px;
+}
+.simg{
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+
+}
+.simg img{
+	width: 100%;
+	height: 100%;
+}
+#detaiList li{
+	height: 45px;
+	line-height: 45px;
+}
+.erweima i{
+	color: #aaa!important;
+	font-size: 18px!important;
+}
+.ewmtitle{
+	margin-bottom: 15px;
+}

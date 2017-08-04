@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myNote">
+<head>
+	<meta charset="UTF-8">
+	<title>myNote</title>
+</head>
+<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="../bootstrap/font-awesome.min.css">
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../myNote/myNote.css">
+<script src="../bootstrap/jquery-3.1.1.min.js"></script>
+<script src="../bootstrap/bootstrap.min.js"></script>
+<script src="../js/angular.js"></script>
+<script src="../js/angular-route.min.js"></script>
+<script src="../js/angular-animate.min.js"></script>
+<script src="../myNote/myNote.js"></script>
+<body ng-controller="myNoteCtrl">
+	<header class="header">
+	    <div class="container">
+	        <div class="logo text-center">
+	            <img src="http://oh4kff8rx.bkt.clouddn.com/data/20161122/20161122141252_411.png">
+	            <span>prayone书签网</span>
+	        </div>
+	        <div class="head-bottom">
+	            <div class="row">
+	                <div class="col-md-6 col-sm-5 hidden-xs">
+	                    <a href="" class="">快速制作一个属于自己的便签</a>
+	                </div>
+	                <div class="col-md-6 col-sm-6 col-sm-12 ">
+	                    <div class="text-right loginbox">
+	                        <div class="weizhi">
+	                            <div class="simg">
+	                                <img  class="img-circle" src="../img/mingpian.jpg">
+	                            </div>
+	                            <a class="myinfo" title="个人中心" href="../admin/admin.html">{{user}}</a>
+	                            <a class="exit" ng-click="logout()" title="点击退出" href="javascript:0">退出</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    	<hr>
+	</header>
+	<div class="container" >
+	        <div class="search-box">
+	            <div class="row">
+	                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+	                    <ul  class="nav nav-tabs myTab">
+	                        <li class="active">
+	                            <a href="" dataurl="baidu_so"  data-toggle="tab">百度</a>
+	                        </li>
+	                        <li class="hidden-xs">
+	                            <a href="" dataurl="google_so" data-toggle="tab">谷歌</a>
+	                        </li>
+	                        <li class="">
+	                            <a href="" dataurl="taobao_so" data-toggle="tab">淘宝</a>
+	                        </li>
+	                        <li class="hidden-xs">
+	                            <a href="" dataurl="jd_so" data-toggle="tab">京东</a>
+	                        </li>
+	                        <li class="hidden-xs">
+	                            <a href="" dataurl="zhihu_so" data-toggle="tab">知乎</a>
+	                        </li>
+	                        <li class="hidden-xs">
+	                            <a href="" dataurl="douban_so" data-toggle="tab">豆瓣</a>
+	                        </li>
+	                        <li class="">
+	                            <a href="" dataurl="weibo_so" data-toggle="tab">微博</a>
+	                        </li>
+	                        <li class="hidden-xs">
+	                            <a href=""  dataurl="wechat_so" data-toggle="tab">微信</a>
+	                        </li>
+	                        <li class="hidden-xs ">
+	                            <a href="" dataurl="github_so" data-toggle="tab">GitHub</a>
+	                        </li>
+	                        <li class="visible-xs">
+	                            <a href="" dataurl="yinyue_so" data-toggle="tab">音乐</a>
+	                        </li>
+	                        <!-- 下拉菜单 -->
+	                        <li class="dropdown">
+	                              <a href="javascript:0 " class="other_so" class="dropdown-toggle" data-toggle="dropdown"> 其他<span class="caret"></span>
+
+	                              </a>
+	                          <ul class="dropdown-menu other_so_menu " role="menu">
+	                                <li class=" visible-xs ">
+	                                    <a href="#" dataurl="google_so">谷歌</a>
+	                                </li>
+	                                <li class="visible-xs ">
+	                                    <a href="#" dataurl="jd_so">京东</a>
+	                                </li>
+	                                <li class=" visible-xs ">
+	                                    <a href="#" dataurl="zhihu_so">知乎</a>
+	                                </li>
+	                                <li class=" visible-xs ">
+	                                    <a href="#"  dataurl="douban_so">豆瓣</a>
+	                                </li>
+	                                <li class=" visible-xs ">
+	                                    <a href="#" dataurl="wechat_so">微信</a>
+	                                </li>
+	                                <li class=" visible-xs ">
+	                                    <a href="#" dataurl="github_so">GitHub</a>
+	                                </li>
+	                                <li class="">
+	                                    <a  ng-click="addqita($event)" dataurl="shipin_so">视频</a>
+	                                </li>
+	                                <li class="hidden-xs">
+	                                    <a  ng-click="addqita($event)" dataurl="yinyue_so">音乐</a>
+	                                </li>
+	                                <li class="">
+	                                    <a  ng-click="addqita($event)" dataurl="wangpan_so" >网盘</a>
+	                                </li>
+	                          </ul>
+	                       </li>               
+	                    </ul>
+	                    
+	                    <div id="soTabContent" class="tab-content">
+	                           <div class="" id="search_so">
+	                                <form >
+	                                    <div class="input-group">
+	                                      <input type="text" class="form-control input-lg bdSug" name="word" placeholder="立即搜索" baidusug="1"  autocomplete="off" ng-model="words">
+	                                      <span class="input-group-btn">
+	                                        <div class="btn btn-primary btn-lg search_web" ng-click="searchWeb();">搜一下</div>
+	                                      </span>
+	                                    </div>
+	                                     <input type="hidden" name="soid" value="1">
+	                                </form>
+	                           </div>
+	                    </div>
+
+	                </div><!-- /.col-lg-6 -->
+	            </div>
+	        </div>
+	        <div class="row search-info">
+	            <div class="col-xs-3 col-sm-2 col-md-1 col-md-offset-1">
+	                <p class="text-center">
+	                    <a href="http://www.toutiao.com/" title="新闻" target="_blank">
+	                        <button type="button" class="btn btn-lg news">新</button>
+	                        <span>新闻</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://www.taobao.com/" title="淘宝" target="_blank">
+	                        <button type="button" class="btn btn-lg taobao">淘</button>
+	                        <span>淘宝</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://www.weibo.com/" title="微博" target="_blank">
+	                        <button type="button" class="btn btn-lg weibo">微</button>
+	                        <span>微博</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://www.4399.com/" title="游戏" target="_blank">
+	                        <button type="button" class="btn btn-lg youxi">游</button>
+	                        <span>游戏</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://wx.qq.com/" title="微信" target="_blank">
+	                        <button type="button" class="btn btn-lg weixin">微</button>
+	                        <span>微信</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://youku.com/" title="优酷" target="_blank">
+	                        <button type="button" class="btn btn-lg youku">优</button>
+	                        <span>优酷</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://zhihu.com/" title="知乎" target="_blank">
+	                        <button type="button" class="btn btn-lg zhihu">知</button>
+	                        <span>知乎</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://sports.sohu.com/" title="体育" target="_blank">
+	                        <button type="button" class="btn btn-lg tiyu">体</button>
+	                        <span>体育</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://mail.163.com/" title="邮箱" target="_blank">
+	                        <button type="button" class="btn btn-lg youxiang">邮</button>
+	                        <span>邮箱</span>
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="col-xs-3 col-sm-2 col-md-1">
+	                <p class="text-center">
+	                    <a href="http://autohome.com.cn/" title="汽车" target="_blank">
+	                        <button type="button" class="btn btn-lg qiche">汽</button>
+	                        <span>汽车</span>
+	                    </a>
+	                </p>
+	            </div>
+	        </div>
+	        <hr>	
+	</div>
+	<footer class="container">
+        <div class="text-reght myfont pull-right" style="color: #9C9C9C;">
+            <dl>
+              <dd>Copyright © 2017 prayone. All Rights Reserved</dd>
+              <dd>
+                <a href="http://www.miibeian.gov.cn" style="color: #9C9C9C;">陕ICP备15006707号-1</a>
+                &nbsp;&nbsp;<a href="http://prayone.ml/">联系我们</a>
+              </dd>
+            </dl>
+        </div>
+    </footer>
+</body>
+</html>

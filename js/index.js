@@ -81,7 +81,46 @@ angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope,
             }
         });
 };
+	// 已有账户
+	$scope.have=function(){
+		$("#zhuce-modal").modal('hide');
+	}
+	// 登录接口
+	$scope.login=function(){
+				// 登陆接口'/op/login'
+	            var username=$scope.dlm;
+	            var password=$scope.mm3;
+	            if(username==""||password==""){
+	                alert("用户名或者密码不能为空！")
+	                return
+	            }
+	            $scope.data = {
+	                username:username,
+	                password:password
+	            }
+				 var url=targetUrl+base_login;
+		         $http({
+		            url: url,
+		            method: 'POST',
+		            data:$scope.data
+		            
+		        }).success(function(rs){
+		        	if(rs.info){
+                    alert("登陆成功！")
+                    localStorage.setItem('username',username)
+                    // setCookie('sid',rs.sid)
+                    // setCookie('u_id',rs.userid);
+                    // setCookie('u_title',rs.title);
+                    window.location.href="./mynote/mynote.html";
+		            }else{
+		                alert(rs.err)
+		            }
+		        }).error(function(rs){
+		        		alert(rs)
+		        });
 
+
+			};
 
 
 

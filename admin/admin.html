@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="admin">
+<head>
+	<meta charset="UTF-8">
+	<title>admin</title>
+</head>
+<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="../bootstrap/font-awesome.min.css">
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../admin/admin.css">
+<script src="../bootstrap/jquery-3.1.1.min.js"></script>
+<script src="../bootstrap/bootstrap.min.js"></script>
+<script src="../js/angular.js"></script>
+<script src="../js/angular-route.min.js"></script>
+<script src="../js/angular-animate.min.js"></script>
+<script src="../admin/admin.js"></script>
+<body >
+	<header class="header" ng-controller="adminCtrl">
+        <div class="container">
+            <div class="logo text-center">
+                <img src="http://oh4kff8rx.bkt.clouddn.com/data/20161122/20161122141252_411.png">
+                <span>prayone书签网</span>
+            </div>
+            <div class="head-bottom">
+                <div class="row">
+                    <div class="col-md-6 col-sm-5 hidden-xs">
+                        <a href="" class="">快速制作一个属于自己的便签</a>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-sm-12">
+                        <div class="text-right homepage">
+                            <a class="index.html" href="../mynote/mynote.html">我的主页</a>
+                            <a ng-click='logout()' href="javascript:0">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </header>
+    <div class="container" ng-controller="adminCtrl">
+    	<div class="row">
+    		<div class="col-md-3 cont-left">
+    			<ul class="sortlist">
+    				<li class="bg text-center" ng-click="jump('/system',$event)">系统分类</li>
+    				<li class="text-center" ng-click="jump('/mynote',$event)">我的便签</li>
+    				<li class="text-center" ng-click="jump('/myqq',$event)">我的QQ/群</li>
+    				<li class="text-center" ng-click="jump('/myweixin',$event)">我的微信</li>
+    				<li class="text-center" ng-click="jump('/myinfo',$event)">个人信息</li>
+    				<li  class="lastli text-center" ng-click="jump('/mysafe',$event)">账号安全</li>
+    			</ul>
+    		</div>
+    		<div class="col-md-9 cont-right">
+    			<div class="infoBox" ng-view>
+    				
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <hr>
+</body>
+
+</html>
+<!-- <script src="../js/Sortable.min.js"></script>
+<script>
+    var el = document.getElementById('items');
+    new Sortable(el, {
+        group: "name",
+        store: null, // @see Store
+        handle: ".my-handle", // 点击目标元素约束开始
+        draggable: ".item",   // 指定那些选项需要排序
+        ghostClass: "sortable-ghost",
+
+        onStart: function (/**Event*/evt) { // 拖拽
+            var itemEl = evt.item;
+        },
+
+        onEnd: function (/**Event*/evt) { // 拖拽
+            var itemEl = evt.item;
+        },
+
+        onAdd: function (/**Event*/evt){
+            var itemEl = evt.item;
+        },
+
+        onUpdate: function (/**Event*/evt){
+            var itemEl = evt.item; // 当前拖拽的html元素
+        },
+
+        onRemove: function (/**Event*/evt){
+            var itemEl = evt.item;
+        }
+    });
+    new Sortable(el, {
+        group: "localStorage-example",
+        store: {
+            get: function (sortable) {
+                var order = localStorage.getItem(sortable.options.group);
+                return order ? order.split('|') : [];
+            },
+            set: function (sortable) {
+                var order = sortable.toArray();
+                localStorage.setItem(sortable.options.group, order.join('|'));
+            }
+        }
+    })
+</script> -->

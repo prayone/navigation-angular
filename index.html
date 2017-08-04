@@ -690,7 +690,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#login-modal" data-toggle="modal" id="tiao">已有账户？</a>
+                    <a href="#login-modal" data-toggle="modal" id="tiao" ng-click="have()">已有账户？</a>
                     <div class="btn btn-success" id="register" ng-click="register()">提交注册</div>
                 </div>
             </div>
@@ -712,15 +712,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="loginup">用户名：</label>
-                        <input type="text" class="form-control username" id="loginup">
+                        <input type="text" class="form-control username" id="loginup" ng-model="dlm">
                     </div>
                     <div class="form-group">
                         <label for="password11">密码：</label>
-                        <input type="password" class="form-control password" id="password11">
+                        <input type="password" class="form-control password" id="password11" ng-model="mm3">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="sign-in">登陆</button>
+                    <button class="btn btn-success" id="sign-in" ng-click="login();">登陆</button>
                     <button class="btn btn-danger" data-dismiss="modal">取消</button>
                 </div>
             </div>
