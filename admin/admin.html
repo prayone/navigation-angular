@@ -13,6 +13,8 @@
 <script src="../js/angular.js"></script>
 <script src="../js/angular-route.min.js"></script>
 <script src="../js/angular-animate.min.js"></script>
+<script src="../js/angular-cookie.js"></script>
+
 <script src="../admin/admin.js"></script>
 <body >
 	<header class="header" ng-controller="adminCtrl">
@@ -41,12 +43,12 @@
     	<div class="row">
     		<div class="col-md-3 cont-left">
     			<ul class="sortlist">
-    				<li class="bg text-center" ng-click="jump('/system',$event)">系统分类</li>
-    				<li class="text-center" ng-click="jump('/mynote',$event)">我的便签</li>
-    				<li class="text-center" ng-click="jump('/myqq',$event)">我的QQ/群</li>
-    				<li class="text-center" ng-click="jump('/myweixin',$event)">我的微信</li>
-    				<li class="text-center" ng-click="jump('/myinfo',$event)">个人信息</li>
-    				<li  class="lastli text-center" ng-click="jump('/mysafe',$event)">账号安全</li>
+    				<li class=" text-center"  ng-click="jump('/system',$event)">系统分类</li>
+    				<li class="text-center"  ng-click="jump('/mynote',$event)">我的便签</li>
+    				<li class="text-center"  ng-click="jump('/myqq',$event)">我的QQ/群</li>
+    				<li class="text-center"  ng-click="jump('/myweixin',$event)">我的微信</li>
+    				<li class="text-center"  ng-click="jump('/myinfo',$event)">个人信息</li>
+    				<li  class="lastli text-center"  ng-click="jump('/mysafe',$event)">账号安全</li>
     			</ul>
     		</div>
     		<div class="col-md-9 cont-right">

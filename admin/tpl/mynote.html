@@ -117,7 +117,7 @@
         <li>
             <ul class="row list-inline smallul">
                 <li class="col-md-2 text-center">
-                    <a class="add-icon" href="#add-modal" data-toggle="modal">添加</a>
+                    <a class="add-icon"  data-toggle="modal" data-target="#add-modal">添加</a>
                 </li>
             </ul>
         </li>
@@ -129,7 +129,7 @@
     </ul>
 </div>
 <div class="bulid-sort text-center">
-    <a href="#bulid-sort-modal" class="add-icon" data-toggle="modal">创建分类</a>
+    <a class="add-icon" data-toggle="modal" data-target="#bulid-sort-modal">创建分类</a>
 </div>
 <!-- 模态框 -->
 <div class="modal fade" id="add-modal"><!--半透明黑色大框 fade属性为动画-->
@@ -179,8 +179,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" onclick="addSort()" id="sort-sign-in">确定</button>
-                <button class="btn btn-danger" onclick="closeAddSort()">取消</button>
+                <button class="btn btn-success" ng-click="addSort()" id="sort-sign-in">确定</button>
+                <button class="btn btn-danger" ng-click="closeAddSort()">取消</button>
             </div>
         </div>
     </div>

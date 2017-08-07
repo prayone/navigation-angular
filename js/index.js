@@ -1,7 +1,7 @@
 var targetUrl = "http://119.29.254.72:9000";
 var base_login = '/op/login';
 var base_register="/op/register";
-angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope,$http){
+angular.module('myModule',['ng','ngRoute','ngCookies']).controller('myctrl',function($scope,$http,$cookieStore){
 	// 搜索框
 	$scope.searchWeb=function(){
 		var webCof = {
@@ -108,9 +108,9 @@ angular.module('myModule',['ng','ngRoute']).controller('myctrl',function($scope,
 		        	if(rs.info){
                     alert("登陆成功！")
                     localStorage.setItem('username',username)
-                    // setCookie('sid',rs.sid)
-                    // setCookie('u_id',rs.userid);
-                    // setCookie('u_title',rs.title);
+                    $cookieStore.put('sid',rs.sid)
+                    $cookieStore.put('u_id',rs.userid)
+                    $cookieStore.put('u_title',rs.title)
                     window.location.href="./mynote/mynote.html";
 		            }else{
 		                alert(rs.err)

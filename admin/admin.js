@@ -1,4 +1,21 @@
-angular.module("admin",['ng','ngRoute']).controller("adminCtrl",function ($scope,$location) {
+var show="/rs/v_category_link";
+var sort="/rs/event_category";
+var sqlink="/rs/event_link"
+var base_addtitle="/op/updateTitle";
+var operate = '';
+var flag='';
+   
+	
+
+
+angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",function ($scope,$location,$cookieStore) {
+	var u_id=$cookieStore.get("u_id");
+
+	 var username = localStorage.getItem('username');
+	//防止非法进入
+	if(!username){
+		location.href='../index.html'
+	}
 	// 登出
 	$scope.logout=function(){
     localStorage.removeItem('username');
@@ -7,14 +24,73 @@ angular.module("admin",['ng','ngRoute']).controller("adminCtrl",function ($scope
 	// 路由页面间的跳转
 	$scope.jump=function(aa,event){
 			 $location.path(aa); 
-			 console.log(event.target)
+			 var hash= window.location.hash;
+			 // console.log(hash)
+			 var Url="#"+aa;
+			 console.log(Url)
 			 $(event.target).addClass("bg").siblings().removeClass("bg");
 		}
+
+	function clearForm() {
+    $("#bulid-sort-modal").modal('hide');
+    $("#sort-mc").val("");
+    $("#add-modal").modal('hide');
+    $("#wangzhi").val("");
+    $("#mingcheng").val("");
+    $("#textarea").val("");
+
+}
+
 }).controller('systemCtrl',function($scope){
 		// $scope.msg="起始页面"
 	}).
 	controller('mynoteCtrl',function($scope){
-		// $scope.msg="主页面"
+		// 我的书签：创建分类
+			$scope.addSort=function () {
+			    var name=$("#sort-mc").val();
+			    $scope.data={
+			        name:name,
+			        u_id:u_id
+			    }
+			    if(operate=='edit'){
+			    	// 修改
+					operate = '';//重置
+			        var sortId = $('#bulid-sort-modal').attr('c_id');
+			       // zhput(sort+"/"+sortId,data).then(function (rs) {
+			       // 	 	if(rs.info){
+			       //          clearForm();
+			       //          showSort();
+			       //      }else if(rs.err){
+			       //          alert(rs.err)
+			       //      }
+			       // })
+				}else{
+			    	//新增
+			   //      zhpost(sort,data).then(function (rs) {
+			   //      	if(rs.info){
+			   //              clearForm();
+			   //              showSort();
+						// }else if(rs.err){
+			   //      		alert(rs.err)
+						// }
+			   //      });
+			   var url=targetUrl+sort;
+			   $http({
+			   	url: url,
+			   	method: 'POST',
+			   	data:$scope.data
+
+			   }).success(function(rs){
+			   	if(rs.info){
+			   		 clearForm();
+			          showSort();
+			   	}else if(rs.err){
+			   		alert(rs.err)
+			   	}
+			   })
+			}
+		}
+
 	}).
 	controller('myqqCtrl',function($scope){
 		// $scope.msg="详情页面"
