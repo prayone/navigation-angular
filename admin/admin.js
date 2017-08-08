@@ -4,13 +4,9 @@ var sqlink="/rs/event_link"
 var base_addtitle="/op/updateTitle";
 var operate = '';
 var flag='';
-   
-	
-
-
-angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",function ($scope,$location,$cookieStore) {
-	var u_id=$cookieStore.get("u_id");
-
+angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",function ($scope,$location,$cookieStore,$rootScope) {
+	$rootScope.u_id=$cookieStore.get("u_id");
+	$rootScope.sid=$cookieStore.get("sid");
 	 var username = localStorage.getItem('username');
 	//防止非法进入
 	if(!username){
@@ -31,7 +27,7 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			 $(event.target).addClass("bg").siblings().removeClass("bg");
 		}
 
-	function clearForm() {
+	$scope.clearForm=function () {
     $("#bulid-sort-modal").modal('hide');
     $("#sort-mc").val("");
     $("#add-modal").modal('hide');
@@ -40,17 +36,65 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
     $("#textarea").val("");
 
 }
+	// 关闭分类模态框
+	$scope.closeAddSort=function() {
+        $scope.clearForm();
+        $('#bulid-sort-modal').modal("hide");
+    }
 
 }).controller('systemCtrl',function($scope){
 		// $scope.msg="起始页面"
 	}).
-	controller('mynoteCtrl',function($scope){
-		// 我的书签：创建分类
+	controller('mynoteCtrl',function($scope,$rootScope,$http){
+			 //显示分类
+		    $scope.showSort=function() {
+		    var url=targetUrl+show+"?id="+$rootScope.u_id;
+			   $http({
+			   	url: url,
+			   	method: 'GET'
+			   }).success(function(rs){
+			   	if(rs.length>0){
+			   		$scope.sortlist=rs;
+			   		console.log(rs)
+			   	}else if(rs.err){
+			   		alert(rs.err)
+			   	}
+			   })
+		        // zhget(show+"?id="+u_id).then(function (rs) {
+		        //     if(rs.length>0){
+		        //         buildTableNoPage(rs,'showSort_temp','sortInfo');
+		        //         $(".sortLink li").on('mouseover',function () {
+		        //             $(this).css("border","none");
+		        //             $(this).find(".bq-icon").css({
+		        //                 "display":"block",
+		        //                 "padding":"0",
+		        //                 "border":"1px solid #F35E06",
+		        //                 "height":"100%",
+		        //                 "background-color":"#fff",
+		        //                 "z-index":"999"
+		        //             });
+		        //         })
+		        //         $(".sortLink li").on('mouseout',function () {
+		        //             $(this).css("border","1px solid #B9EEF3");
+		        //             $(this).find(".bq-icon") .css({
+		        //                 "display":"none",
+		        //             });
+		        //         })
+		        //     }else {
+		        //         alert('请求出错')
+		        //     }
+		        // });
+
+		    };
+		    $scope.showSort();
+
+			//创建分类
 			$scope.addSort=function () {
-			    var name=$("#sort-mc").val();
+			    $scope.name=$scope.sortname;
 			    $scope.data={
-			        name:name,
-			        u_id:u_id
+			        name:$scope.name,
+			        u_id:$rootScope.u_id,
+			        sid:$rootScope.sid
 			    }
 			    if(operate=='edit'){
 			    	// 修改
@@ -65,15 +109,7 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			       //      }
 			       // })
 				}else{
-			    	//新增
-			   //      zhpost(sort,data).then(function (rs) {
-			   //      	if(rs.info){
-			   //              clearForm();
-			   //              showSort();
-						// }else if(rs.err){
-			   //      		alert(rs.err)
-						// }
-			   //      });
+			    //新增分类
 			   var url=targetUrl+sort;
 			   $http({
 			   	url: url,
@@ -82,8 +118,8 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 
 			   }).success(function(rs){
 			   	if(rs.info){
-			   		 clearForm();
-			          showSort();
+			   		 $scope.clearForm();
+			          //  $scope.showSort();
 			   	}else if(rs.err){
 			   		alert(rs.err)
 			   	}

@@ -124,8 +124,15 @@
     </ul>
 </div>
 <div class="showSort">
-    <ul id="sortInfo">
-
+    <ul id="sortInfo" ng-repeat="m in sortlist">
+        <li  sortId="{{m.c_id}}" class="sortliid">
+            <a href="javascript:0" class="shuqian" ng-click="">{{m.c_name}}</a>
+            <!-- <a href="javascript:0" class="edit" onclick="editSort(this)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            <a href="javascript:0" class="delete" onclick="deleteSort(this)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+           <!--  <ul class="sortLink row list-inline smallul">
+                {{include "noteList" value}}
+            </ul> -->
+        </li>
     </ul>
 </div>
 <div class="bulid-sort text-center">
@@ -175,7 +182,7 @@
             <div class="modal-body text-center">
                 <div class="form-group form-inline">
                     <label for="sort-mc">名称</label>
-                    <input type="text" class="" id="sort-mc" placeholder="分类名称">
+                    <input type="text" class="" id="sort-mc" placeholder="分类名称" ng-model="sortname">
                 </div>
             </div>
             <div class="modal-footer">
