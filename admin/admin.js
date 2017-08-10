@@ -87,7 +87,14 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 
 		    };
 		    $scope.showSort();
-
+		    //修改分类
+		    $scope.editSort=function (event) {
+		        operate = 'edit';
+		        $('#bulid-sort-modal').modal();
+		        $("#sort-mc").val($(event.target).parent().siblings(0).html());
+		        console.log($(event.target).parent().parent().attr('sortId'))
+		        $('#bulid-sort-modal').attr('c_id',$(event.target).parent().parent().attr('sortId'))
+		    }
 			//创建分类
 			$scope.addSort=function () {
 			    $scope.name=$scope.sortname;
@@ -100,6 +107,21 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			    	// 修改
 					operate = '';//重置
 			        var sortId = $('#bulid-sort-modal').attr('c_id');
+			        console.log(sortId);
+			         var url=targetUrl+sort+"/"+sortId;
+			          $http({
+						   	url: url,
+						   	method: 'POST',
+						   	data:$scope.data
+
+						   }).success(function(rs){
+						   	if(rs.info){
+						   		 $scope.clearForm();
+						           $scope.showSort();
+						   	}else if(rs.err){
+						   		alert(rs.err)
+						   	}
+						   })
 			       // zhput(sort+"/"+sortId,data).then(function (rs) {
 			       // 	 	if(rs.info){
 			       //          clearForm();
@@ -119,7 +141,7 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			   }).success(function(rs){
 			   	if(rs.info){
 			   		 $scope.clearForm();
-			          //  $scope.showSort();
+			           $scope.showSort();
 			   	}else if(rs.err){
 			   		alert(rs.err)
 			   	}

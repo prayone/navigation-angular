@@ -127,8 +127,8 @@
     <ul id="sortInfo" ng-repeat="m in sortlist">
         <li  sortId="{{m.c_id}}" class="sortliid">
             <a href="javascript:0" class="shuqian" ng-click="">{{m.c_name}}</a>
-            <!-- <a href="javascript:0" class="edit" onclick="editSort(this)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-            <a href="javascript:0" class="delete" onclick="deleteSort(this)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+            <a href="javascript:0" class="edit" ng-click="editSort($event)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            <a href="javascript:0" class="delete" ng-click="deleteSort($event)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a>
            <!--  <ul class="sortLink row list-inline smallul">
                 {{include "noteList" value}}
             </ul> -->
