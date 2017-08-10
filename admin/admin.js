@@ -23,18 +23,17 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			 var hash= window.location.hash;
 			 // console.log(hash)
 			 var Url="#"+aa;
-			 console.log(Url)
+			 console.log(Url);
 			 $(event.target).addClass("bg").siblings().removeClass("bg");
 		}
 
 	$scope.clearForm=function () {
-    $("#bulid-sort-modal").modal('hide');
-    $("#sort-mc").val("");
-    $("#add-modal").modal('hide');
-    $("#wangzhi").val("");
-    $("#mingcheng").val("");
-    $("#textarea").val("");
-
+	    $("#bulid-sort-modal").modal('hide');
+	    $("#sort-mc").val("");
+	    $("#add-modal").modal('hide');
+	    $("#wangzhi").val("");
+	    $("#mingcheng").val("");
+	    $("#textarea").val("");
 }
 	// 关闭分类模态框
 	$scope.closeAddSort=function() {
@@ -111,9 +110,8 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			         var url=targetUrl+sort+"/"+sortId;
 			          $http({
 						   	url: url,
-						   	method: 'POST',
+						   	method: 'PUT',
 						   	data:$scope.data
-
 						   }).success(function(rs){
 						   	if(rs.info){
 						   		 $scope.clearForm();
@@ -122,14 +120,6 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 						   		alert(rs.err)
 						   	}
 						   })
-			       // zhput(sort+"/"+sortId,data).then(function (rs) {
-			       // 	 	if(rs.info){
-			       //          clearForm();
-			       //          showSort();
-			       //      }else if(rs.err){
-			       //          alert(rs.err)
-			       //      }
-			       // })
 				}else{
 			    //新增分类
 			   var url=targetUrl+sort;
@@ -148,7 +138,94 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			   })
 			}
 		}
+		 //删除分类
+		    $scope.deleteSort=function (event) {
+		        if(!confirm('确认要删除吗？')){
+		            return;
+		        }
+		        var sortId=$(event.target).parent().parent().attr("sortId");
+		        var url=targetUrl+sort+"/"+sortId;
+				    $scope.data={
+				        sid:$rootScope.sid
+				    }
+			          $http({
+						   	url: url,
+						   	method: 'DELETE',
+						   	data:$scope.data
+						   }).success(function(rs){
+						   	if(rs.info){
+						           $scope.showSort();
+						   	}else if(rs.err){
+						   		alert(rs.err)
+						   	}
+						   })
+		    }
+// ======================================================================================================================================================
+			//绑定分类id
+		    $scope.bindId=function(event) {
+		    	console.log($(event.target))
+		        $("#add-modal").attr("bindid",$(event.target).parent().parent().parent().attr("sortid"));
+		    }
 
+			//添加书签
+			$scope.addNote=function () {
+			    $scope.name=$scope.mingcheng;
+			    $scope.link=$scope.link;
+			    $scope.intro=$scope.intro;
+			    var c_id=$("#add-modal").attr("bindid");
+			    $scope.data={
+			        name:$scope.name,
+			        link:$scope.link,
+			        c_id:c_id,
+			        intro:$scope.intro,
+			        sid:$rootScope.sid
+			    }
+			    if(flag=='edit'){
+			        // 修改
+			       flag = '';//重置
+			        // var noteid=$("#add-modal").attr("n_id");
+			        // var data1={
+			        //     name:name,
+			        //     link:link,
+			        //     intro:intro
+			        // }
+			        // zhput(sqlink+"/"+noteid,data1).then(function (rs) {
+			        //     if(rs.info){
+			        //         clearForm();
+			        //         showSort();
+			        //     }else if(rs.err){
+			        //         alert(rs.err)
+			        //     }
+			        // })
+			    }else{
+			        //新增
+			         var url=targetUrl+sqlink;
+					   $http({
+					   	url: url,
+					   	method: 'POST',
+					   	data:$scope.data
+
+					   }).success(function(rs){
+					   	if(rs){
+					   		$scope.clearForm();
+			                c_id='';
+					        $scope.showSort();
+					   	}else if(rs.err){
+					   		alert(rs.err)
+					   	}
+					   })
+			        // zhpost(sqlink,data).then(function (rs) {
+			        //     if(rs){
+			        //         clearForm();
+			        //         c_id='';
+			        //         showSort();
+
+			        //     }else if(rs.err){
+			        //         alert(rs.err)
+			        //     }
+			        // });
+			    }
+			}
 	}).
 	controller('myqqCtrl',function($scope){
 		// $scope.msg="详情页面"

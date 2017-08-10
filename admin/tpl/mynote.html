@@ -125,13 +125,26 @@
 </div>
 <div class="showSort">
     <ul id="sortInfo" ng-repeat="m in sortlist">
+                <!-- 分类的位置 -->
         <li  sortId="{{m.c_id}}" class="sortliid">
             <a href="javascript:0" class="shuqian" ng-click="">{{m.c_name}}</a>
             <a href="javascript:0" class="edit" ng-click="editSort($event)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             <a href="javascript:0" class="delete" ng-click="deleteSort($event)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a>
-           <!--  <ul class="sortLink row list-inline smallul">
-                {{include "noteList" value}}
-            </ul> -->
+                <!-- 书签的位置 -->
+            <ul class="sortLink row list-inline smallul">
+                 <li title="{{value.intro}}" class="col-md-2 text-center bgc" noteid="{{value.id}}">
+                    <a class="liLink text-center" href="{{value.link}}" data-toggle="modal" target="_blank">{{value.name}}</a>
+                    <p class="bq-icon text-center">
+                        <a class="liLink text-center" href="{{value.link}}" data-toggle="modal" target="_blank">{{value.name}}</a>
+                        <!-- <a href="javascript:0" class="editNode" onclick="editNote(this)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="javascript:0" class="delNote" onclick="deleteNote(this)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+                    </p>
+                </li>
+                <li class="col-md-2 text-center" >
+                    <a id="addid" class="add-icon" data-toggle="modal" data-target="#add-modal" ng-click="bindId($event)">添加</a>
+                </li>
+            </ul>
+
         </li>
     </ul>
 </div>
@@ -139,7 +152,7 @@
     <a class="add-icon" data-toggle="modal" data-target="#bulid-sort-modal">创建分类</a>
 </div>
 <!-- 模态框 -->
-<div class="modal fade" id="add-modal"><!--半透明黑色大框 fade属性为动画-->
+<div class="modal fade" id="add-modal" ><!--半透明黑色大框 fade属性为动画-->
     <div class="modal-dialog"> <!--宽/高/定位-->
         <div class="modal-content"><!--边框/背景色/阴影-->
             <div class="modal-header">
@@ -151,19 +164,19 @@
             <div class="modal-body text-center">
                 <div class="form-group form-inline">
                     <label for="mingcheng">名称</label>
-                    <input type="text" class="" id="mingcheng" placeholder="标签名称">
+                    <input type="text" class="" id="mingcheng" placeholder="标签名称" ng-model="mingcheng">
                 </div>
                 <div class="form-group form-inline">
                     <label for="wangzhi">网址</label>
-                    <input type="text" class="" id="wangzhi" placeholder="例：http://www.baidu.com">
+                    <input type="text" class="" id="wangzhi" placeholder="例：http://www.baidu.com" ng-model="link">
                 </div>
                 <div class="form-group form-inline">
                     <label for="textarea" class="textlabel">备注</label>
-                    <textarea id="textarea" placeholder="备注"></textarea>
+                    <textarea id="textarea" placeholder="备注" ng-model="intro"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" id="sign-in" onclick="addNote()">确定</button>
+                <button class="btn btn-success" id="sign-in" ng-click="addNote()">确定</button>
                 <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
         </div>
