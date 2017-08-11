@@ -131,11 +131,11 @@
             <a href="javascript:0" class="edit" ng-click="editSort($event)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             <a href="javascript:0" class="delete" ng-click="deleteSort($event)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 <!-- 书签的位置 -->
-            <ul class="sortLink row list-inline smallul">
-                 <li title="{{value.intro}}" class="col-md-2 text-center bgc" noteid="{{value.id}}">
-                    <a class="liLink text-center" href="{{value.link}}" data-toggle="modal" target="_blank">{{value.name}}</a>
+            <ul class="sortLink row list-inline smallul" >
+                 <li ng-repeat="n in m.link_json" title="{{n.intro}}" class="col-md-2 text-center bgc" noteid="{{n.id}}">
+                    <a class="liLink text-center" href="{{n.link}}" data-toggle="modal" target="_blank">{{n.name}}</a>
                     <p class="bq-icon text-center">
-                        <a class="liLink text-center" href="{{value.link}}" data-toggle="modal" target="_blank">{{value.name}}</a>
+                        <a class="liLink text-center" href="{{n.link}}" data-toggle="modal" target="_blank">{{n.name}}</a>
                         <!-- <a href="javascript:0" class="editNode" onclick="editNote(this)"  title="编辑"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                         <a href="javascript:0" class="delNote" onclick="deleteNote(this)" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
                     </p>
