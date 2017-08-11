@@ -54,35 +54,30 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			   }).success(function(rs){
 			   	if(rs.length>0){
 			   		$scope.sortlist=rs;
-			   		console.log(rs)
+			   		 $(".sortLink li").on('mouseover',function () {
+		                    $(this).css("border","none");
+		                    $(this).find(".bq-icon").css({
+		                        "display":"block",
+		                        "padding":"0",
+		                        "border":"1px solid #F35E06",
+		                        "height":"100%",
+		                        "background-color":"#fff",
+		                        "z-index":"999"
+		                    });
+		                })
+		                $(".sortLink li").on('mouseout',function () {
+		                    $(this).css("border","1px solid #B9EEF3");
+		                    $(this).find(".bq-icon") .css({
+		                        "display":"none",
+		                    });
+		                });
 			   	}else if(rs.err){
 			   		alert(rs.err)
 			   	}
 			   })
-		        // zhget(show+"?id="+u_id).then(function (rs) {
-		        //     if(rs.length>0){
-		        //         buildTableNoPage(rs,'showSort_temp','sortInfo');
-		        //         $(".sortLink li").on('mouseover',function () {
-		        //             $(this).css("border","none");
-		        //             $(this).find(".bq-icon").css({
-		        //                 "display":"block",
-		        //                 "padding":"0",
-		        //                 "border":"1px solid #F35E06",
-		        //                 "height":"100%",
-		        //                 "background-color":"#fff",
-		        //                 "z-index":"999"
-		        //             });
-		        //         })
-		        //         $(".sortLink li").on('mouseout',function () {
-		        //             $(this).css("border","1px solid #B9EEF3");
-		        //             $(this).find(".bq-icon") .css({
-		        //                 "display":"none",
-		        //             });
-		        //         })
-		        //     }else {
-		        //         alert('请求出错')
-		        //     }
-		        // });
+		       
+		               
+		           
 
 		    };
 		    $scope.showSort();
