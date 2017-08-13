@@ -111,7 +111,6 @@ angular.module('myModule',['ng','ngRoute','ngCookies']).controller('myctrl',func
                     $cookieStore.put('sid',rs.sid)
                     $cookieStore.put('u_id',rs.userid)
                     $cookieStore.put('u_title',rs.title)
-                    debugger
                     window.location.href="./mynote/mynote.html";
 		            }else{
 		                alert(rs.err)

@@ -4,7 +4,7 @@ var sqlink="/rs/event_link"
 var base_addtitle="/op/updateTitle";
 var operate = '';
 var flag='';
-angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",function ($scope,$location,$cookieStore,$rootScope) {
+angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",function ($scope,$location,$cookieStore,$rootScope,$timeout) {
 	$rootScope.u_id=$cookieStore.get("u_id");
 	$rootScope.sid=$cookieStore.get("sid");
 	 var username = localStorage.getItem('username');
@@ -41,6 +41,28 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
         $('#bulid-sort-modal').modal("hide");
     }
 
+	$scope.active=function(event){
+			console.log($(event.target))
+	    	 $(event.target).parent().css("border","none");
+             $(event.target).parent().find(".bq-icon").css({
+                "display":"block",
+                "padding":"0",
+                "border":"1px solid #F35E06",
+                "height":"100%",
+                "background-color":"#fff",
+                "z-index":"999"
+            });
+	    }
+    $scope.leave=function(event){
+            $(event.target).parent().css("border","1px solid #B9EEF3");
+            $timeout(function() {
+            	$(event.target).parent().find(".bq-icon").css({
+                    "display":"none"
+                });
+            }, 2000);
+                
+    }
+
 }).controller('systemCtrl',function($scope){
 		// $scope.msg="起始页面"
 	}).
@@ -54,33 +76,23 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			   }).success(function(rs){
 			   	if(rs.length>0){
 			   		$scope.sortlist=rs;
-			   		 $(".sortLink li").on('mouseover',function () {
-		                    $(this).css("border","none");
-		                    $(this).find(".bq-icon").css({
-		                        "display":"block",
-		                        "padding":"0",
-		                        "border":"1px solid #F35E06",
-		                        "height":"100%",
-		                        "background-color":"#fff",
-		                        "z-index":"999"
-		                    });
-		                })
-		                $(".sortLink li").on('mouseout',function () {
-		                    $(this).css("border","1px solid #B9EEF3");
-		                    $(this).find(".bq-icon") .css({
-		                        "display":"none",
-		                    });
-		                });
+
+			   		 // $(".sortLink li").on('mouseover',function () {
+		                   
+		       //          })
+		       //          $(".sortLink li").on('mouseout',function () {
+		       //              $(this).css("border","1px solid #B9EEF3");
+		       //              $(this).find(".bq-icon") .css({
+		       //                  "display":"none",
+		       //              });
+		       //          });
 			   	}else if(rs.err){
 			   		alert(rs.err)
 			   	}
 			   })
-		       
-		               
-		           
-
 		    };
 		    $scope.showSort();
+
 		    //修改分类
 		    $scope.editSort=function (event) {
 		        operate = 'edit';
@@ -146,6 +158,9 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			          $http({
 						   	url: url,
 						   	method: 'DELETE',
+						   	headers : {
+		                        'Content-Type' : "application/json; charset=UTF-8"  //angularjs设置content-type修改方式
+		                    },
 						   	data:$scope.data
 						   }).success(function(rs){
 						   	if(rs.info){
@@ -178,12 +193,29 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 			    if(flag=='edit'){
 			        // 修改
 			       flag = '';//重置
-			        // var noteid=$("#add-modal").attr("n_id");
-			        // var data1={
-			        //     name:name,
-			        //     link:link,
-			        //     intro:intro
-			        // }
+			        var noteid=$("#add-modal").attr("n_id");
+			        console.log(noteid)
+			        $scope.data1={
+			            name:$scope.name,
+			            link:$scope.link,
+			            intro:$scope.intro,
+			        	sid:$rootScope.sid
+
+			        }
+			        var url=targetUrl+sqlink+"/"+noteid;
+			        console.log($rootScope.sid)
+			          $http({
+						   	url: url,
+						   	method: 'PUT',
+						   	data:$scope.data1,
+						   }).success(function(rs){
+						   	if(rs.info){
+						   		 $scope.clearForm();
+						           $scope.showSort();
+						   	}else if(rs.err){
+						   		alert(rs.err)
+						   	}
+						   })
 			        // zhput(sqlink+"/"+noteid,data1).then(function (rs) {
 			        //     if(rs.info){
 			        //         clearForm();
@@ -209,18 +241,39 @@ angular.module("admin",['ng','ngRoute','ngCookies',]).controller("adminCtrl",fun
 					   		alert(rs.err)
 					   	}
 					   })
-			        // zhpost(sqlink,data).then(function (rs) {
-			        //     if(rs){
-			        //         clearForm();
-			        //         c_id='';
-			        //         showSort();
-
-			        //     }else if(rs.err){
-			        //         alert(rs.err)
-			        //     }
-			        // });
 			    }
 			}
+			//修改书签
+    $scope.editNote=function (event) {
+        flag = 'edit';
+        console.log($(event.target))
+        $('#add-modal').modal();
+        $("#mingcheng").val($(event.target).parent().prevAll().html());
+        $("#wangzhi").val($(event.target).parent().prevAll().attr("href"));
+        $("#textarea").val($(event.target).parent().parent().parent().attr("title"))
+        $('#add-modal').attr('n_id',$(event.target).parent().parent().parent().attr('noteid'))
+    }
+    $scope.deleteNote=function (event) {
+        if(!confirm('确认要删除吗？')){
+            return;
+        }
+        var noteid=$(event.target).parent().parent().parent().attr("noteid");
+        var url=targetUrl+sqlink+"/"+noteid;
+				    $scope.data={
+				        sid:$rootScope.sid
+				    }
+			          $http({
+						   	url: url,
+						   	method: 'DELETE',
+						   	data:$scope.data
+						   }).success(function(rs){
+						   	if(rs.info){
+						           $scope.showSort();
+						   	}else if(rs.err){
+						   		alert(rs.err)
+						   	}
+						   })
+   		 }
 	}).
 	controller('myqqCtrl',function($scope){
 		// $scope.msg="详情页面"
